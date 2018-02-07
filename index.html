@@ -3,10 +3,6 @@
 	<!-- This is a template for your home page for the class -->
 	<!-- Replace the sample content with your own -->
 	
-	<div id="map"></div>
-	<!-- Replace the value of the key parameter with your own API key. -->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFyb67ZwKQM4mX1P2uCAN5CitG1yEVt7A&callback=initMap" async defer></script>
-	
 	<head>
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 		<title>A Starter Page Template</title>
@@ -16,15 +12,6 @@
 		
 		<!-- you can create styles local to this page by putting them in the following style block -->
 		
-		#map {
-  		height: 100%;
-		}
-		/* Optional: Makes the sample page fill the window. */
-		html, body {
-  			height: 100%;
-  			margin: 0;
-  			padding: 0;
-		}
 		<style type=text/css>
 		
 		</style>
@@ -54,6 +41,20 @@
 		
 		<h2>Deep Dives</h2>
 		<p><a href="">Deep Dive 1</a></p>
+		
+		<div id="map"></div>
+		<!-- Replace the value of the key parameter with your own API key. -->
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFyb67ZwKQM4mX1P2uCAN5CitG1yEVt7A&callback=initMap" async defer></script>
+		
+		#map {
+  		height: 100%;
+		}
+		/* Optional: Makes the sample page fill the window. */
+		html, body {
+  			height: 100%;
+  			margin: 0;
+  			padding: 0;
+		}
 		
 		var map;
 		function initMap() {
