@@ -13,6 +13,16 @@
 		<!-- you can create styles local to this page by putting them in the following style block -->
 		
 		<style type=text/css>
+			
+		#map {
+  		height: 100%;
+		}
+		/* Optional: Makes the sample page fill the window. */
+		html, body {
+  			height: 100%;
+  			margin: 0;
+  			padding: 0;
+		}
 		
 		</style>
 	</head>
@@ -45,16 +55,6 @@
 		<div id="map"></div>
 		<!-- Replace the value of the key parameter with your own API key. -->
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFyb67ZwKQM4mX1P2uCAN5CitG1yEVt7A&callback=initMap" async defer></script>
-		
-		#map {
-  		height: 100%;
-		}
-		/* Optional: Makes the sample page fill the window. */
-		html, body {
-  			height: 100%;
-  			margin: 0;
-  			padding: 0;
-		}
 		
 		var map;
 		function initMap() {
