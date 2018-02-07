@@ -3,6 +3,10 @@
 	<!-- This is a template for your home page for the class -->
 	<!-- Replace the sample content with your own -->
 	
+	<div id="map"></div>
+	<!-- Replace the value of the key parameter with your own API key. -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFyb67ZwKQM4mX1P2uCAN5CitG1yEVt7A&callback=initMap" async defer></script>
+	
 	<head>
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 		<title>A Starter Page Template</title>
@@ -11,24 +15,19 @@
 		<!-- <link rel="stylesheet" type="text/css" href="styles.css"> -->
 		
 		<!-- you can create styles local to this page by putting them in the following style block -->
+		
+		#map {
+  		height: 100%;
+		}
+		/* Optional: Makes the sample page fill the window. */
+		html, body {
+  			height: 100%;
+  			margin: 0;
+  			padding: 0;
+		}
 		<style type=text/css>
 		
 		</style>
-		<meta name="viewport" content="initial-scale=1.0">
-    		<meta charset="utf-8">
-   		<style>
-		      /* Always set the map height explicitly to define the size of the div
-		       * element that contains the map. */
-      		#map {
-        	height: 100%;
-      		}
-     		 /* Optional: Makes the sample page fill the window. */
-      		html, body {
-        	height: 100%;
-        	margin: 0;
-        	padding: 0;
-      		}
-    		</style>
 	</head>
 	<body>
 		<h1>My Geography 485L/585L Home Page</h1>
@@ -55,5 +54,13 @@
 		
 		<h2>Deep Dives</h2>
 		<p><a href="">Deep Dive 1</a></p>
+		
+		var map;
+		function initMap() {
+  		map = new google.maps.Map(document.getElementById('map'), {
+    		center: {lat: -34.397, lng: 150.644},
+    		zoom: 8
+  		});
+		}
 	</body>
 </html>
