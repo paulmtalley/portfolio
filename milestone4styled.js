@@ -4,6 +4,7 @@ function initialize() {
     zoom: 8,
     center: louisianaCoast,
     mapTypeId: google.maps.MapTypeId.SATELLITE
+    styles: [
     "elementType": "geometry",
     "stylers": [
       {
@@ -227,6 +228,7 @@ function initialize() {
         "color": "#9e9e9e"
       }
     ]
+   ]
   };
   var map = new google.maps.Map(
       document.getElementById("map_canvas"),
