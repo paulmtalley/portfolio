@@ -3,7 +3,7 @@ function initialize() {
   var mapOptions = {
     zoom: 8,
     center: louisianaCoast,
-    mapTypeId: google.maps.MapTypeId.SATELLITE
+    mapTypeId: google.maps.MapTypeId.SATELLITE,
     styles: [{"elementType": "geometry", "stylers": [{"color": "#f5f5f5"}]},
              {"elementType": "labels.icon", "stylers": [{"visibility": "off"}]},
              {"elementType": "labels.text.fill", "stylers": [{"color": "#616161"}]},
