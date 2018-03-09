@@ -3,7 +3,7 @@ function initialize() {
   var mapOptions = {
     zoom: 11,
     center: newOrleans,
-    mapTypeId: google.maps.MapTypeId.SATELLITE,
+    mapTypeId: google.maps.MapTypeId.ROADS,
     styles: [
   {
     "elementType": "geometry",
