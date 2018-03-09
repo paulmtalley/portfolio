@@ -1,8 +1,8 @@
 function initialize() {
-  var newOrleans = new google.maps.LatLng(29.955646, -90.102900)
+  var abq = new google.maps.LatLng(35.109669, -106.613475)
   var mapOptions = {
-    zoom: 11,
-    center: newOrleans,
+    zoom: 10,
+    center: abq,
     mapTypeId: google.maps.MapTypeId.ROADS,
     styles: [
   {
