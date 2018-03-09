@@ -256,7 +256,7 @@ function initialize() {
       mapOptions);
   
   var layer = new google.maps.FusionTablesLayer({
-      map: map,
+      map: deepdive1canvas,
       heatmap: { enabled: false },
       query: {
         select: "col2",
