@@ -1,5 +1,24 @@
 function initialize() {
   var abq = new google.maps.LatLng(35.109669, -106.613475)
+  
+  var map = new google.maps.Map(
+      document.getElementById("deepdive1canvas"),
+      mapOptions);
+  
+  var layer = new google.maps.FusionTablesLayer({
+      map: deepdive1canvas,
+      heatmap: { enabled: false },
+      query: {
+        select: "col2",
+        from: "1jCTWKrggO9ZnsO6jzKjRz3KamOj3f6GjICNtn0MC",
+        where: ""
+      },
+      options: {
+        styleId: 2,
+        templateId: 2
+      }
+    });
+
   var mapOptions = {
     zoom: 12,
     center: abq,
@@ -251,21 +270,4 @@ function initialize() {
   }
 ]
   };
-  var map = new google.maps.Map(
-      document.getElementById("deepdive1canvas"),
-      mapOptions);
-  
-  var layer = new google.maps.FusionTablesLayer({
-      map: deepdive1canvas,
-      heatmap: { enabled: false },
-      query: {
-        select: "col2",
-        from: "1jCTWKrggO9ZnsO6jzKjRz3KamOj3f6GjICNtn0MC",
-        where: ""
-      },
-      options: {
-        styleId: 2,
-        templateId: 2
-      }
-    });
 }
