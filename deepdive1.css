@@ -1,13 +1,12 @@
-/* Always set the map height explicitly to define the size of the div
- * element that contains the map. */
+html {
+  height: 100% }
+
 #deepdive1canvas {
-  height: 80%;
-  width: 80%
-}
-/* Optional: Makes the sample page fill the window. */
-html, body {
-  height: 800px;
-  max-width: 1200px;
+  height: 600px;
+  width: 80%;
+  margin: auto; }
+
+body {
+  height: 100%;
   margin: auto;
-  padding: 1px;
-}
+  padding: 10px; }
