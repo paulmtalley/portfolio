@@ -1,8 +1,8 @@
 function initialize() {
-  var spain = new google.maps.LatLng(40.280236, -3.752970)
+  var stonehenge = new google.maps.LatLng(51.178884, -1.826214)
   var mapOptions = { 
-    zoom: 6,
-    center: spain,
+    zoom: 18,
+    center: stonehenge,
     mapTypeId: google.maps.MapTypeId.SATELLITE,
     styles: [
   {
