@@ -259,7 +259,7 @@ function initialize() {
       map: deepdive1canvas,
       heatmap: { enabled: false },
       query: {
-        select: "col4",
+        select: "col2",
         from: "1jCTWKrggO9ZnsO6jzKjRz3KamOj3f6GjICNtn0MC",
         where: ""
       },
