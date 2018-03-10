@@ -1,6 +1,6 @@
 function initialize() {
   var abq = new google.maps.LatLng(35.093000, -106.619370)
-  var mapOptions = {
+  var mapOptions = { 
     zoom: 12,
     center: abq,
     mapTypeId: google.maps.MapTypeId.ROADS,
