@@ -10,13 +10,24 @@
   <body>
     <div id="map" class="map"></div>
     <script>
+    var myNewRotate = new ol.control.Rotate({autoHide:false})
+    var myScaleLine = new ol.control.ScaleLine()
+    var myOverviewMap = new ol.control.OverviewMap({collapsible:false, collapsed:false})
+
+    var myControls = ol.control.defaults({
+      attribution:true,
+      rotate:true,
+      zoom:true
+    }).extend([myNewRotate,myScaleLine,myOverviewMap])
+
       var map = new ol.Map({
         layers: [
           new ol.layer.Tile({
-            source: new ol.source.OSM()
+            source: new ol.source.Stamen({layer:'terrain'})
           })
         ],
         target: 'map',
+        controls: myControls,
         view: new ol.View({
           center: ol.proj.fromLonLat([-106.624083,35.08427]),
           zoom: 8
