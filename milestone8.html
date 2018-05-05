@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Simple Map</title>
+    <title>Milestone 8</title>
     <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
     <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
@@ -11,14 +11,14 @@
     <div id="map" class="map"></div>
     <script>
       var map = new ol.Map({
+        target: 'map'
         layers: [
           new ol.layer.Tile({
             source: new ol.source.OSM()
           })
         ],
-        target: 'map',
         view: new ol.View({
-          center: ol.proj.fromLonLat([35.10, -106.62],
+          center: ol.proj.fromLonLat([-106.62, 35.10],
           zoom: 8
         })
       });
