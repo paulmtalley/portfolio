@@ -1,24 +1,25 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Simple Map</title>
+    <title>Open Layers Map, Milestone 8</title>
     <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
     <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
     <script src="https://openlayers.org/en/v4.6.5/build/ol.js"></script>
   </head>
   <body>
+    <h1>Open Layers Map</h1>
+      <p>This map is a template for showing earthquakes in and around California.</p>
     <div id="map" class="map"></div>
     <script>
-    var myNewRotate = new ol.control.Rotate({autoHide:false})
-    var myScaleLine = new ol.control.ScaleLine()
+    var myScaleLine = new ol.control.ScaleLine({collapsible: false, collapsed:false})
     var myOverviewMap = new ol.control.OverviewMap({collapsible:false, collapsed:false})
 
     var myControls = ol.control.defaults({
       attribution:true,
       rotate:true,
       zoom:true
-    }).extend([myNewRotate,myScaleLine,myOverviewMap])
+    }).extend([myScaleLine,myOverviewMap])
 
       var map = new ol.Map({
         layers: [
