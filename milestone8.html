@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
     <style>
       .map {
-        height: 500px;
+        height: 600px;
         width: 90%;
       }
     </style>
@@ -15,11 +15,22 @@
     <h2>Milestone 8</h2>
     <div id="map" class="map"></div>
     <script type="text/javascript">
+      var styles = [
+        'Road',
+        'Aerial',
+        'AerialWithLabels',
+      ];
       var map = new ol.Map({
+        loadTilesWhileInteracting: true,
         target: 'map',
         layers: [
           new ol.layer.Tile({
-            source: new ol.source.OSM()
+            visible: false,
+            preload: Infinity,
+            source: new ol.source.BingMaps({
+              key: 'Am-bdWlcLzi7GcETQMols1O0qfQ6ocA0bA2Jcp_aZbcwrcWmCymm4N0O2V9thVe_',
+              imagerySet: styles
+            })
           })
         ],
         view: new ol.View({
