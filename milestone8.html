@@ -11,12 +11,12 @@
     <div id="map" class="map"></div>
     <script>
       var map = new ol.Map({
-        target: 'map',
         layers: [
           new ol.layer.Tile({
             source: new ol.source.OSM()
           })
         ],
+        target: 'map',
         view: new ol.View({
           center: ol.proj.fromLonLat([-106.62, 35.10],
           zoom: 2
