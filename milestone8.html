@@ -12,9 +12,6 @@
       <p>This map is a template for showing earthquakes in and around California.</p>
     <div id="map" class="map"></div>
     <script>
-
-    var projection = ol.proj.get('EPSG:3857');
-
     var myScaleLine = new ol.control.ScaleLine({collapsible: false, collapsed:false})
     var myOverviewMap = new ol.control.OverviewMap({collapsible:false, collapsed:false})
 
@@ -35,7 +32,6 @@
         view: new ol.View({
           center: ol.proj.fromLonLat([-121.614265, 37.444672]),
           zoom: 6
-          projection: projection
         })
       });
     </script>
