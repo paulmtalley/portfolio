@@ -16,8 +16,8 @@
     <div id="map" class="map"></div>
     <select id="layer-select">
        <option value="Aerial">Aerial</option>
-       <option value="AerialWithLabels" selected>Aerial with labels</option>
-       <option value="Road">Road (static)</option>
+       <option value="AerialWithLabels" selected>Aerial With Labels</option>
+       <option value="Road">Road</option>
      </select>
     <script type="text/javascript">
       var styles = [
@@ -25,24 +25,36 @@
         'Aerial',
         'AerialWithLabels',
       ];
+      var layers = [];
+      var i, ii;
+      for (i = 0, ii = styles.length; i < ii; ++i) {
+        layers.push(new ol.layer.Tile({
+          visible: false,
+          preload: Infinity,
+          source: new ol.source.BingMaps({
+            key: 'Am-bdWlcLzi7GcETQMols1O0qfQ6ocA0bA2Jcp_aZbcwrcWmCymm4N0O2V9thVe_',
+            imagerySet: styles[i]
+          })
+        }));
+      }
       var map = new ol.Map({
+        layers: layers,
         loadTilesWhileInteracting: true,
         target: 'map',
-        layers: [
-          new ol.layer.Tile({
-            visible: false,
-            preload: Infinity,
-            source: new ol.source.BingMaps({
-              key: 'Am-bdWlcLzi7GcETQMols1O0qfQ6ocA0bA2Jcp_aZbcwrcWmCymm4N0O2V9thVe_',
-              imagerySet: styles
-            })
-          })
-        ],
-        view: new ol.View({
+          view: new ol.View({
           center: ol.proj.fromLonLat([35.10, -106.62]),
           zoom: 6
-        })
+          })
       });
+      var select = document.getElementById('layer-select');
+      function onChange() {
+        var style = select.value;
+        for (var i = 0, ii = layers.length; i < ii; ++i) {
+          layers[i].setVisible(styles[i] === style);
+        }
+      }
+      select.addEventListener('change', onChange);
+      onChange();
     </script>
   </body>
 </html>
