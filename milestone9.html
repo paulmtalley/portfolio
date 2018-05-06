@@ -35,7 +35,8 @@
       <p>This map shows earthquakes in 2012 with a magnitude greater than 5 across the world.
       The data comes from an example dataset provided on Open Layers' website. The map is
       focused on California, but the user can click and drag the map to other areas.
-      I also manually added vector features to indicate a few major cities in California.</p>
+      I also manually added vector features to indicate a few major cities in California.
+      Finally, I added a WMS image showing fault lines in the state.</p>
     <div id="map" class="map"><div id="info"></div></div>
     <script>
     // This section is for map control elements and the map itself
@@ -64,7 +65,7 @@
             image: new ol.style.Circle({
               radius: radius,
               fill: new ol.style.Fill({
-                color: 'rgba(255, 153, 0, 0.4)'
+                color: 'rgba(255, 255, 0, 0.4)'
               }),
               stroke: new ol.style.Stroke({
                 color: 'rgba(255, 204, 0, 0.2)',
