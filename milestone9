@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Open Layers Map, Milestone 9</title>
+    <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
+    <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+    <script src="https://openlayers.org/en/v4.6.5/build/ol.js"></script>
+  </head>
+  <body>
+    <h1>Open Layers Map, Milestone 9</h1>
+      <p>This map is a template for showing earthquakes in and around California.</p>
+    <div id="map" class="map"></div>
+    <script>
+    // This section is for map control elements and the map itself
+    var myScaleLine = new ol.control.ScaleLine({collapsible: false, collapsed:false})
+    var myOverviewMap = new ol.control.OverviewMap({collapsible:false, collapsed:false})
+    var fullscreenOption = new ol.control.FullScreen()
+    
+    var myControls = ol.control.defaults({
+      attribution:true,
+      rotate:true,
+      zoom:true
+    }).extend([myScaleLine,myOverviewMap, fullscreenOption])
+
+    // This section is for map features, such as points, polygons, WMS, KML
+    var styleCache = {};
+      var styleFunction = function(feature) {
+        // 2012_Earthquakes_Mag5.kml stores the magnitude of each earthquake in a
+        // standards-violating <magnitude> tag in each Placemark.  We extract it from
+        // the Placemark's name instead.
+        var name = feature.get('name');
+        var magnitude = parseFloat(name.substr(2));
+        var radius = 5 + 20 * (magnitude - 5);
+        var style = styleCache[radius];
+        if (!style) {
+          style = new ol.style.Style({
+            image: new ol.style.Circle({
+              radius: radius,
+              fill: new ol.style.Fill({
+                color: 'rgba(255, 153, 0, 0.4)'
+              }),
+              stroke: new ol.style.Stroke({
+                color: 'rgba(255, 204, 0, 0.2)',
+                width: 1
+              })
+            })
+          });
+          styleCache[radius] = style;
+        }
+        return style;
+      };
+
+      var vector = new ol.layer.Vector({
+        source: new ol.source.Vector({
+          url: 'https://escweb.wr.usgs.gov/earthquakes/kml/feeds/NCAeqDDRT.kml',
+          format: new ol.format.KML({
+            extractStyles: false
+          })
+        }),
+        style: styleFunction
+      });
+
+      var raster = new ol.layer.Tile({
+        source: new ol.source.Stamen({
+          layer: 'terrain-background'
+        })
+      });
+
+      // var map = new ol.Map({
+      //  layers: [
+      //    new ol.layer.Tile({
+      //      source: new ol.source.Stamen({layer:'terrain-background'})
+      //    })
+      //  ],
+      
+      var map = new ol.Map({
+        layers: [raster, vector],
+        target: 'map',
+        controls: myControls,
+        view: new ol.View({
+          center: ol.proj.fromLonLat([-121.614265, 37.444672]),
+          zoom: 6
+        })
+      });
+
+    </script>
+  </body>
+</html>
