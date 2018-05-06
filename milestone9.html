@@ -32,7 +32,10 @@
   </head>
   <body>
     <h1>Open Layers Map, Milestone 9</h1>
-      <p>This map is a template for showing earthquakes in and around California.</p>
+      <p>This map shows earthquakes with a magnitude greater than 5 across the world.
+      The data comes from an example dataset provided on Open Layers' website. The map
+      is focused on California, and also includes vector features for some major cities
+      in the state.</p>
     <div id="map" class="map"><div id="info"></div></div>
     <script>
     // This section is for map control elements and the map itself
@@ -76,7 +79,7 @@
 
       var vector = new ol.layer.Vector({
         source: new ol.source.Vector({
-          url: 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_week_age.kml',
+          url: 'https://openlayers.org/en/v4.6.5/examples/data/kml/2012_Earthquakes_Mag5.kml',
           format: new ol.format.KML({
             extractStyles: false
           })
