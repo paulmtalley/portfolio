@@ -9,11 +9,31 @@
     <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <style>
+      #map {
+        position: relative;
+      }
+      #info {
+        position: absolute;
+        height: 1px;
+        width: 1px;
+        z-index: 100;
+      }
+      .tooltip.in {
+        opacity: 1;
+      }
+      .tooltip.top .tooltip-arrow {
+        border-top-color: white;
+      }
+      .tooltip-inner {
+        border: 2px solid white;
+      }
+    </style>
   </head>
   <body>
     <h1>Open Layers Map, Milestone 9</h1>
       <p>This map is a template for showing earthquakes in and around California.</p>
-    <div id="map" class="map"></div>
+    <div id="map" class="map"><div id="info"></div></div>
     <script>
     // This section is for map control elements and the map itself
     var myScaleLine = new ol.control.ScaleLine({collapsible: false, collapsed:false})
@@ -85,6 +105,42 @@
           center: ol.proj.fromLonLat([-121.614265, 37.444672]),
           zoom: 6
         })
+      });
+
+      var info = $('#info');
+      info.tooltip({
+        animation: false,
+        trigger: 'manual'
+      });
+
+      var displayFeatureInfo = function(pixel) {
+        info.css({
+          left: pixel[0] + 'px',
+          top: (pixel[1] - 15) + 'px'
+        });
+        var feature = map.forEachFeatureAtPixel(pixel, function(feature) {
+          return feature;
+        });
+        if (feature) {
+          info.tooltip('hide')
+              .attr('data-original-title', feature.get('name'))
+              .tooltip('fixTitle')
+              .tooltip('show');
+        } else {
+          info.tooltip('hide');
+        }
+      };
+
+      map.on('pointermove', function(evt) {
+        if (evt.dragging) {
+          info.tooltip('hide');
+          return;
+        }
+        displayFeatureInfo(map.getEventPixel(evt.originalEvent));
+      });
+
+      map.on('click', function(evt) {
+        displayFeatureInfo(evt.pixel);
       });
 
     </script>
