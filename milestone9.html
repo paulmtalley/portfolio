@@ -53,9 +53,6 @@
     // This section is for map features, such as points, polygons, WMS, KML
     var styleCache = {};
       var styleFunction = function(feature) {
-        // 2012_Earthquakes_Mag5.kml stores the magnitude of each earthquake in a
-        // standards-violating <magnitude> tag in each Placemark.  We extract it from
-        // the Placemark's name instead.
         var name = feature.get('name');
         var magnitude = parseFloat(name.substr(2));
         var radius = 5 + 20 * (magnitude - 5);
@@ -102,12 +99,7 @@
         })
       });
 
-      // var map = new ol.Map({
-      //  layers: [
-      //    new ol.layer.Tile({
-      //      source: new ol.source.Stamen({layer:'terrain-background'})
-      //    })
-      //  ],
+      // Map and tooltip
       
       var map = new ol.Map({
         layers: [raster, WMSimage, vector],
