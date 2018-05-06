@@ -11,70 +11,30 @@
     <h1>Open Layers Map</h1>
       <p>This map is a template for showing earthquakes in and around California.</p>
     <div id="map" class="map"></div>
-
-    <select id="layer-select">
-       <option value="terrain-background" selected>Terrain</option>
-       <option value="toner-background">Toner</option>
-     </select>
-
     <script>
-      var styles = [
-        'terrain-background',
-        'toner-background'
-      ];
-      var layers = [];
-      var i, ii;
-      for (i = 0, ii = styles.length; i < ii; ++i) {
-        layers.push(new ol.layer.Tile({
-          visible: false,
-          preload: Infinity,
-          source: new ol.source.Stamen({
-            imagerySet: styles[i]
-          })
-        }));
-      }
-      var map = new ol.Map({
-        layers: layers,
-        loadTilesWhileInteracting: true,
-        target: 'map',
-        view: new ol.View({
-          center: [-121.614265, 37.444672],
-          zoom: 6
-        })
-      });
-
-      var select = document.getElementById('layer-select');
-      function onChange() {
-        var style = select.value;
-        for (var i = 0, ii = layers.length; i < ii; ++i) {
-          layers[i].setVisible(styles[i] === style);
-        }
-      }
-      select.addEventListener('change', onChange);
-      onChange();
-
     var myScaleLine = new ol.control.ScaleLine({collapsible: false, collapsed:false})
     var myOverviewMap = new ol.control.OverviewMap({collapsible:false, collapsed:false})
-
+    var fullscreenOption = new ol.control.FullScreen()
+    
     var myControls = ol.control.defaults({
       attribution:true,
       rotate:true,
       zoom:true
-    }).extend([myScaleLine,myOverviewMap])
+    }).extend([myScaleLine,myOverviewMap, fullscreenOption])
 
-      // var map = new ol.Map({
-      //  layers: [
-      //    new ol.layer.Tile({
-      //      source: new ol.source.Stamen({layer:'terrain'})
-      //    })
-      //  ],
-      //  target: 'map',
-      //  controls: myControls,
-      //  view: new ol.View({
-      //    center: ol.proj.fromLonLat([-121.614265, 37.444672]),
-      //    zoom: 6
-      //  })
-      //});
+      var map = new ol.Map({
+        layers: [
+          new ol.layer.Tile({
+            source: new ol.source.Stamen({layer:'terrain-background'})
+          })
+        ],
+        target: 'map',
+        controls: myControls,
+        view: new ol.View({
+          center: ol.proj.fromLonLat([-121.614265, 37.444672]),
+          zoom: 6
+        })
+      });
     </script>
   </body>
 </html>
