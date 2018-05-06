@@ -145,6 +145,12 @@
         style: styleFunction
       });
 
+      var cities = new ol.layer.Vector({
+        source: new ol.source.Vector({
+          features: [losAngeles, sanFrancisco,sanDiego, sacramento, fresno]
+        })
+      });
+
       var raster = new ol.layer.Tile({
         source: new ol.source.Stamen({
           layer: 'terrain-background'
