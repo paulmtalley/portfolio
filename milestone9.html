@@ -51,6 +51,8 @@
     }).extend([myScaleLine,myOverviewMap, fullscreenOption])
 
     // This section is for map features, such as points, polygons, WMS, KML
+
+    // Style for earthquake layer
     var styleCache = {};
       var styleFunction = function(feature) {
         var name = feature.get('name');
@@ -75,6 +77,56 @@
         return style;
       };
 
+      // Style for city points
+      var stroke = new ol.style.Stroke({color: 'white', width: 2});
+      var fill = new ol.style.Fill({color: 'red'});
+
+      var cityPointStyles = {
+          'star': new ol.style.Style({
+              image: new ol.style.RegularShape({
+                  fill: fill,
+                  stroke: stroke,
+                  points: 5,
+                  radius: 10,
+                  radius2: 4,
+                  angle: 0
+              })
+          })
+      };
+      var losAngeles = new ol.Feature({ });
+      var sanDiego = new ol.Feature({ });
+      var sanFrancisco = new ol.Feature({ });
+      var sacramento = new ol.Feature({ });
+      var fresno = new ol.Feature({ });
+
+      var lA = new ol.geom.Point(
+          ol.proj.fromLonLat([-118.432369, 34.099799])
+      );
+      var sD = new ol.geom.Point(
+          ol.proj.fromLonLat ([-117.137855, 32.832317])
+      );
+      var sF = new ol.geom.Point(
+          ol.proj.fromLonLat ([-122.438606, 37.768433])
+      );
+      var sM = new ol.geom.Point(
+          ol.proj.fromLonLat([-121.481373, 38.572731])
+      );
+      var fN = new ol.geom.Point(
+          ol.proj.fromLonLat([-119.791137, 36.743095])
+      );
+      losAngeles.setGeometry(lA);
+      sanDiego.setGeometry(sD);
+      sanFrancisco.setGeometry(sF);
+      sacramento.setGeometry(sM);
+      fresno.setGeometry(fN);
+
+      losAngeles.setStyle(styles["star"]);
+      sanDiego.setStyle(styles["star"]);
+      sanFrancisco.setStyle(styles["star"]);
+      sacramento.setStyle(styles["star"]);
+      fresno.setStyle(styles["star"]);
+
+      // Three layers
       var WMSimage = new ol.layer.Image({
           source: new ol.source.ImageArcGISRest({
             url: 'https://spatialservices.conservation.ca.gov/arcgis/rest/services/CGS/FaultActivityMapCA/MapServer',
@@ -99,8 +151,7 @@
         })
       });
 
-      // Map and tooltip
-      
+      // Map, tooltip, and map controls
       var map = new ol.Map({
         layers: [raster, WMSimage, vector],
         target: 'map',
