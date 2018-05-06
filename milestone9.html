@@ -77,6 +77,14 @@
         return style;
       };
 
+      var WMSimage = new ol.layer.Image({
+          source: new ol.source.ImageArcGISRest({
+            url: 'https://spatialservices.conservation.ca.gov/arcgis/rest/services/CGS/FaultActivityMapCA/MapServer/WMTS/1.0.0/WMTSCapabilities.xml'
+            ratio: 1,
+            params: {}
+          })
+        });
+
       var vector = new ol.layer.Vector({
         source: new ol.source.Vector({
           url: 'https://openlayers.org/en/v4.6.5/examples/data/kml/2012_Earthquakes_Mag5.kml',
@@ -101,7 +109,7 @@
       //  ],
       
       var map = new ol.Map({
-        layers: [raster, vector],
+        layers: [raster, WMSimage, vector],
         target: 'map',
         controls: myControls,
         view: new ol.View({
