@@ -114,17 +114,18 @@
       var fN = new ol.geom.Point(
           ol.proj.fromLonLat([-119.791137, 36.743095])
       );
+
       losAngeles.setGeometry(lA);
       sanDiego.setGeometry(sD);
       sanFrancisco.setGeometry(sF);
       sacramento.setGeometry(sM);
       fresno.setGeometry(fN);
 
-      losAngeles.setStyle(styles["star"]);
-      sanDiego.setStyle(styles["star"]);
-      sanFrancisco.setStyle(styles["star"]);
-      sacramento.setStyle(styles["star"]);
-      fresno.setStyle(styles["star"]);
+      losAngeles.setStyle(cityPointStyles["star"]);
+      sanDiego.setStyle(cityPointStyles["star"]);
+      sanFrancisco.setStyle(cityPointStyles["star"]);
+      sacramento.setStyle(cityPointStyles["star"]);
+      fresno.setStyle(cityPointStyles["star"]);
 
       // Three layers
       var WMSimage = new ol.layer.Image({
@@ -159,7 +160,7 @@
 
       // Map, tooltip, and map controls
       var map = new ol.Map({
-        layers: [raster, WMSimage, vector],
+        layers: [raster, WMSimage, vector, cities],
         target: 'map',
         controls: myControls,
         view: new ol.View({
