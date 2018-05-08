@@ -124,31 +124,13 @@
       // fresno.setStyle(cityPointStyles["star"]);
 
       // Three layers
-      // var firePerim = new ol.layer.Tile({
-      //     source: new ol.source.TileWMS({
-      //       url: 'http://internetmapping.net:8080/geoserver/ows?',
-      //       params: {'LAYERS': 'ws_paulmtalley:pt_NM_Fire_Perim', 'TILED': true},
-      //       serverType: 'geoserver'
-      //     })
-      //   });
-
-      // var WMSimage = new ol.layer.Image({
-      //     source: new ol.source.ImageArcGISRest({
-      //       url: 'https://spatialservices.conservation.ca.gov/arcgis/rest/services/CGS/FaultActivityMapCA/MapServer',
-      //       ratio: 1,
-      //       params: {}
-      //     })
-      //   });
-
-      // var vector = new ol.layer.Vector({
-      //   source: new ol.source.Vector({
-      //     url: 'https://openlayers.org/en/v4.6.5/examples/data/kml/2012_Earthquakes_Mag5.kml',
-      //     format: new ol.format.KML({
-      //       extractStyles: false
-      //     })
-      //   }),
-      //   style: styleFunction
-      // });
+      var firePerim = new ol.layer.Tile({
+          source: new ol.source.TileWMS({
+            url: 'http://internetmapping.net:8080/geoserver/ows?',
+            params: {'LAYERS': 'ws_paulmtalley:pt_NM_Fire_Perim', 'TILED': true},
+            serverType: 'geoserver'
+          })
+        });
 
       // var cities = new ol.layer.Vector({
       //   source: new ol.source.Vector({
@@ -164,7 +146,7 @@
 
       // Map, tooltip, and map controls
       var map = new ol.Map({
-        layers: [raster],
+        layers: [raster, firePerim],
         target: 'map',
         controls: myControls,
         view: new ol.View({
