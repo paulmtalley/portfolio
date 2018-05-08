@@ -135,6 +135,14 @@
           })
         });
 
+      var nmPrecip = new ol.layer.Tile({
+          source: new ol.source.TileWMS({
+            url: 'http://internetmapping.net:8080/geoserver/ows?',
+            params: {'LAYERS': 'ws_paulmtalley:pt_Precipitation', 'TILED': true},
+            serverType: 'geoserver'
+          })
+        });
+
       // var cities = new ol.layer.Vector({
       //   source: new ol.source.Vector({
       //     features: [losAngeles, sanFrancisco,sanDiego, sacramento, fresno]
@@ -149,7 +157,7 @@
 
       // Map, tooltip, and map controls
       var map = new ol.Map({
-        layers: [raster, nmCounties, nmStateParks, nmTowns, firePerim],
+        layers: [raster, nmPrecip, nmCounties, nmStateParks, nmTowns, firePerim],
         target: 'map',
         controls: myControls,
         view: new ol.View({
