@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Open Layers Map, Milestone 9</title>
+    <title>Milestone 13, New Mexico Fires</title>
     <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
     <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
@@ -31,8 +31,12 @@
     </style>
   </head>
   <body>
-    <h1>Milestone 13</h1>
-      <p>This map shows fire perimeters in New Mexico from 1911 to 2014. The goal is to provide context between the locations of past fires in relation to towns and state parks within the state.</p>
+    <h1>Fires in New Mexico, 1911 - 2014</h1>
+      <p>This map shows fire perimeters in New Mexico from 1911 to 2014. The goal is to provide context between the locations of past fires in relation to towns and state parks within the state.
+
+      Fire perimeters are shown in red outlines. State parks are the green polygons, towns (with population over 5000) are shown as blue polygons, and the county boundaries are shown in pink.
+
+      Data was collected from RGIS.</p>
     <div id="map" class="map"><div id="info"></div></div>
     <script>
     // This section is for map control elements and the map itself
@@ -46,32 +50,7 @@
       zoom:true
     }).extend([myScaleLine,myOverviewMap, fullscreenOption])
 
-    // This section is for map features, such as points, polygons, WMS, KML
-
-    // Style for earthquake layer
-    // var styleCache = {};
-    //   var styleFunction = function(feature) {
-    //     var name = feature.get('name');
-    //     var magnitude = parseFloat(name.substr(2));
-    //     var radius = 5 + 20 * (magnitude - 5);
-    //     var style = styleCache[radius];
-    //     if (!style) {
-    //       style = new ol.style.Style({
-    //         image: new ol.style.Circle({
-    //           radius: radius,
-    //           fill: new ol.style.Fill({
-    //             color: 'rgba(255, 255, 0, 0.4)'
-    //           }),
-    //           stroke: new ol.style.Stroke({
-    //             color: 'rgba(255, 204, 0, 0.2)',
-    //             width: 1
-    //           })
-    //         })
-    //       });
-    //       styleCache[radius] = style;
-    //     }
-    //     return style;
-    //   };
+    // This section is for map features, such as points, polygons, etc.
 
       // Style for city points
       // var stroke = new ol.style.Stroke({color: 'white', width: 2});
@@ -123,7 +102,7 @@
       // sacramento.setStyle(cityPointStyles["star"]);
       // fresno.setStyle(cityPointStyles["star"]);
 
-      // Three layers
+      // The layers
       var firePerim = new ol.layer.Tile({
           source: new ol.source.TileWMS({
             url: 'http://internetmapping.net:8080/geoserver/ows?',
@@ -175,7 +154,7 @@
         controls: myControls,
         view: new ol.View({
           center: ol.proj.fromLonLat([-106.114097, 34.725722]),
-          zoom: 6
+          zoom: 8
         })
       });
 
