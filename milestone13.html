@@ -132,6 +132,30 @@
           })
         });
 
+      var nmCounties = new ol.layer.Tile({
+          source: new ol.source.TileWMS({
+            url: 'http://internetmapping.net:8080/geoserver/ows?',
+            params: {'LAYERS': 'ws_paulmtalley:pt_NM_County_Boundaries', 'TILED': true},
+            serverType: 'geoserver'
+          })
+        });
+
+      var nmStateParks = new ol.layer.Tile({
+          source: new ol.source.TileWMS({
+            url: 'http://internetmapping.net:8080/geoserver/ows?',
+            params: {'LAYERS': 'ws_paulmtalley:pt_NM_State_Parks', 'TILED': true},
+            serverType: 'geoserver'
+          })
+        });
+
+      var nmTowns = new ol.layer.Tile({
+          source: new ol.source.TileWMS({
+            url: 'http://internetmapping.net:8080/geoserver/ows?',
+            params: {'LAYERS': 'ws_paulmtalley:pt_NM_Towns_Over_5000', 'TILED': true},
+            serverType: 'geoserver'
+          })
+        });
+
       // var cities = new ol.layer.Vector({
       //   source: new ol.source.Vector({
       //     features: [losAngeles, sanFrancisco,sanDiego, sacramento, fresno]
@@ -146,12 +170,12 @@
 
       // Map, tooltip, and map controls
       var map = new ol.Map({
-        layers: [raster, firePerim],
+        layers: [raster, nmCounties, nmStateParks, nmTowns, firePerim],
         target: 'map',
         controls: myControls,
         view: new ol.View({
           center: ol.proj.fromLonLat([-106.114097, 34.725722]),
-          zoom: 4
+          zoom: 8
         })
       });
 
