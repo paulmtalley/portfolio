@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Open Layers Map, Milestone 9</title>
+    <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
+    <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+    <script src="https://openlayers.org/en/v4.6.5/build/ol.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <style>
+      #map {
+        position: relative;
+      }
+      /*#info {
+        position: absolute;
+        height: 1px;
+        width: 1px;
+        z-index: 100;
+      }
+      .tooltip.in {
+        opacity: 1;
+      }
+      .tooltip.top .tooltip-arrow {
+        border-top-color: white;
+      }
+      .tooltip-inner {
+        border: 2px solid white;
+      }*/
+    </style>
+  </head>
+  <body>
+    <h1>Milestone 13</h1>
+      <p>This map shows fire perimeters in New Mexico from 1911 to 2014. The goal is to provide context between the locations of past fires in relation to towns and state parks within the state.</p>
+    <div id="map" class="map"><div id="info"></div></div>
+    <script>
+    // This section is for map control elements and the map itself
+    var myScaleLine = new ol.control.ScaleLine({collapsible: false, collapsed:false})
+    var myOverviewMap = new ol.control.OverviewMap({collapsible:false, collapsed:false})
+    var fullscreenOption = new ol.control.FullScreen()
+    
+    var myControls = ol.control.defaults({
+      attribution:true,
+      rotate:true,
+      zoom:true
+    }).extend([myScaleLine,myOverviewMap, fullscreenOption])
+
+    // This section is for map features, such as points, polygons, WMS, KML
+
+    // Style for earthquake layer
+    // var styleCache = {};
+    //   var styleFunction = function(feature) {
+    //     var name = feature.get('name');
+    //     var magnitude = parseFloat(name.substr(2));
+    //     var radius = 5 + 20 * (magnitude - 5);
+    //     var style = styleCache[radius];
+    //     if (!style) {
+    //       style = new ol.style.Style({
+    //         image: new ol.style.Circle({
+    //           radius: radius,
+    //           fill: new ol.style.Fill({
+    //             color: 'rgba(255, 255, 0, 0.4)'
+    //           }),
+    //           stroke: new ol.style.Stroke({
+    //             color: 'rgba(255, 204, 0, 0.2)',
+    //             width: 1
+    //           })
+    //         })
+    //       });
+    //       styleCache[radius] = style;
+    //     }
+    //     return style;
+    //   };
+
+      // Style for city points
+      // var stroke = new ol.style.Stroke({color: 'white', width: 2});
+      // var fill = new ol.style.Fill({color: 'red'});
+
+      // var cityPointStyles = {
+      //     'star': new ol.style.Style({
+      //         image: new ol.style.RegularShape({
+      //             fill: fill,
+      //             stroke: stroke,
+      //             points: 5,
+      //             radius: 10,
+      //             radius2: 4,
+      //             angle: 0
+      //         })
+      //     })
+      // };
+      // var losAngeles = new ol.Feature({ });
+      // var sanDiego = new ol.Feature({ });
+      // var sanFrancisco = new ol.Feature({ });
+      // var sacramento = new ol.Feature({ });
+      // var fresno = new ol.Feature({ });
+
+      // var lA = new ol.geom.Point(
+      //     ol.proj.fromLonLat([-118.432369, 34.099799])
+      // );
+      // var sD = new ol.geom.Point(
+      //     ol.proj.fromLonLat ([-117.137855, 32.832317])
+      // );
+      // var sF = new ol.geom.Point(
+      //     ol.proj.fromLonLat ([-122.438606, 37.768433])
+      // );
+      // var sM = new ol.geom.Point(
+      //     ol.proj.fromLonLat([-121.481373, 38.572731])
+      // );
+      // var fN = new ol.geom.Point(
+      //     ol.proj.fromLonLat([-119.791137, 36.743095])
+      // );
+
+      // losAngeles.setGeometry(lA);
+      // sanDiego.setGeometry(sD);
+      // sanFrancisco.setGeometry(sF);
+      // sacramento.setGeometry(sM);
+      // fresno.setGeometry(fN);
+
+      // losAngeles.setStyle(cityPointStyles["star"]);
+      // sanDiego.setStyle(cityPointStyles["star"]);
+      // sanFrancisco.setStyle(cityPointStyles["star"]);
+      // sacramento.setStyle(cityPointStyles["star"]);
+      // fresno.setStyle(cityPointStyles["star"]);
+
+      // Three layers
+      var firePerim = new ol.layer.Tile({
+          source: new ol.source.TileWMS({
+            url: 'http://internetmapping.net:8080/geoserver/ows?',
+            params: {'LAYERS': 'ws_paulmtalley:pt_NM_Fire_Perim', 'TILED': true},
+            serverType: 'geoserver'
+          })
+        });
+
+      // var WMSimage = new ol.layer.Image({
+      //     source: new ol.source.ImageArcGISRest({
+      //       url: 'https://spatialservices.conservation.ca.gov/arcgis/rest/services/CGS/FaultActivityMapCA/MapServer',
+      //       ratio: 1,
+      //       params: {}
+      //     })
+      //   });
+
+      // var vector = new ol.layer.Vector({
+      //   source: new ol.source.Vector({
+      //     url: 'https://openlayers.org/en/v4.6.5/examples/data/kml/2012_Earthquakes_Mag5.kml',
+      //     format: new ol.format.KML({
+      //       extractStyles: false
+      //     })
+      //   }),
+      //   style: styleFunction
+      // });
+
+      // var cities = new ol.layer.Vector({
+      //   source: new ol.source.Vector({
+      //     features: [losAngeles, sanFrancisco,sanDiego, sacramento, fresno]
+      //   })
+      // });
+
+      var raster = new ol.layer.Tile({
+        source: new ol.source.Stamen({
+          layer: 'terrain-background'
+        })
+      });
+
+      // Map, tooltip, and map controls
+      var map = new ol.Map({
+        layers: [raster, firePerim],
+        target: 'map',
+        controls: myControls,
+        view: new ol.View({
+          center: ol.proj.fromLonLat([-121.614265, 37.444672]),
+          zoom: 6
+        })
+      });
+
+      // var info = $('#info');
+      // info.tooltip({
+      //   animation: false,
+      //   trigger: 'manual'
+      // });
+
+      // var displayFeatureInfo = function(pixel) {
+      //   info.css({
+      //     left: pixel[0] + 'px',
+      //     top: (pixel[1] - 15) + 'px'
+      //   });
+      //   var feature = map.forEachFeatureAtPixel(pixel, function(feature) {
+      //     return feature;
+      //   });
+      //   if (feature) {
+      //     info.tooltip('hide')
+      //         .attr('data-original-title', feature.get('name'))
+      //         .tooltip('fixTitle')
+      //         .tooltip('show');
+      //   } else {
+      //     info.tooltip('hide');
+      //   }
+      // };
+
+      // map.on('pointermove', function(evt) {
+      //   if (evt.dragging) {
+      //     info.tooltip('hide');
+      //     return;
+      //   }
+      //   displayFeatureInfo(map.getEventPixel(evt.originalEvent));
+      // });
+
+      // map.on('click', function(evt) {
+      //   displayFeatureInfo(evt.pixel);
+      // });
+
+    </script>
+  </body>
+</html>
