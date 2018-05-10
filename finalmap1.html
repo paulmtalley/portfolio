@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Final Map 1</title>
+    <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
+    <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+    <script src="https://openlayers.org/en/v4.6.5/build/ol.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <style>
+      #map {
+        position: relative;
+      }
+      #info {
+        position: absolute;
+        height: 1px;
+        width: 1px;
+        z-index: 100;
+      }
+      .tooltip.in {
+        opacity: 1;
+      }
+      .tooltip.top .tooltip-arrow {
+        border-top-color: white;
+      }
+      .tooltip-inner {
+        border: 2px solid white;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Final Map 1</h1>
+      <p>This is the first map for the Geography 485 final exam.</p>
+    <div id="map" class="map"><div id="info"></div></div>
+    <script>
+    // This section is for map control elements and the map itself
+    var myScaleLine = new ol.control.ScaleLine({collapsible: false, collapsed:false})
+    var myOverviewMap = new ol.control.OverviewMap({collapsible:false, collapsed:false})
+    var fullscreenOption = new ol.control.FullScreen()
+    
+    var myControls = ol.control.defaults({
+      attribution:true,
+      rotate:true,
+      zoom:true
+    }).extend([myScaleLine,myOverviewMap, fullscreenOption])
+
+    // This section is for map features, such as points, polygons, etc.
+      // The layers
+      var lyr1 = new ol.layer.Tile({
+          source: new ol.source.TileWMS({
+            url: 'http://internetmapping.net:8080/geoserver/ws_paulmtalley/ows?',
+            params: {'LAYERS': 'pt_35106-A5_CONT', 'TILED': true},
+            serverType: 'geoserver'
+          })
+        });
+
+      var lyr2 = new ol.layer.Tile({
+          source: new ol.source.TileWMS({
+            url: 'http://internetmapping.net:8080/geoserver/ws_paulmtalley/ows?',
+            params: {'LAYERS': 'pt_35106-A6_CONT_shp', 'TILED': true},
+            serverType: 'geoserver'
+          })
+        });
+
+      var lyr3 = new ol.layer.Tile({
+          source: new ol.source.TileWMS({
+            url: 'http://internetmapping.net:8080/geoserver/ws_paulmtalley/ows?',
+            params: {'LAYERS': 'pt_tgr2006se_bern_lka_shp', 'TILED': true},
+            serverType: 'geoserver'
+          })
+        });
+
+      var lyr4 = new ol.layer.Tile({
+          source: new ol.source.TileWMS({
+            url: 'http://internetmapping.net:8080/geoserver/ws_paulmtalley/ows?',
+            params: {'LAYERS': 'pt_35106-A5_tif', 'TILED': true},
+            serverType: 'geoserver'
+          })
+        });
+
+      var lyr5 = new ol.layer.Tile({
+          source: new ol.source.TileWMS({
+            url: 'http://internetmapping.net:8080/geoserver/ws_paulmtalley/ows?',
+            params: {'LAYERS': 'pt_35106-A6_tif', 'TILED': true},
+            serverType: 'geoserver'
+          })
+        });
+
+      var raster = new ol.layer.Tile({
+        source: new ol.source.Stamen({
+          layer: 'toner'
+        })
+      });
+
+      // Map, tooltip, and map controls
+      var map = new ol.Map({
+        layers: [raster, lyr5, lyr4, lyr3, lyr2, lyr1],
+        target: 'map',
+        controls: myControls,
+        view: new ol.View({
+          center: ol.proj.fromLonLat([-106.114097, 34.725722]),
+          zoom: 6
+        })
+      });
+
+      // var info = $('#info');
+      // info.tooltip({
+      //   animation: false,
+      //   trigger: 'manual'
+      // });
+
+      // var displayFeatureInfo = function(pixel) {
+      //   info.css({
+      //     left: pixel[0] + 'px',
+      //     top: (pixel[1] - 15) + 'px'
+      //   });
+      //   var feature = map.forEachFeatureAtPixel(pixel, function(feature) {
+      //     return feature;
+      //   });
+      //   if (feature) {
+      //     info.tooltip('hide')
+      //         .attr('data-original-title', feature.get('name'))
+      //         .tooltip('fixTitle')
+      //         .tooltip('show');
+      //   } else {
+      //     info.tooltip('hide');
+      //   }
+      // };
+
+      // map.on('pointermove', function(evt) {
+      //   if (evt.dragging) {
+      //     info.tooltip('hide');
+      //     return;
+      //   }
+      //   displayFeatureInfo(map.getEventPixel(evt.originalEvent));
+      // });
+
+      // map.on('click', function(evt) {
+      //   displayFeatureInfo(evt.pixel);
+      // });
+
+    </script>
+  </body>
+</html>
